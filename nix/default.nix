@@ -1,11 +1,11 @@
 { stdenv, pkgs, rust }:
 let
-  manifest = (pkgs.lib.importTOML ./Cargo.toml).package;
+  manifest = (pkgs.lib.importTOML ../Cargo.toml).package;
 in stdenv.mkDerivation rec {
   pname = manifest.name;
   version = manifest.version;
 
-  src = ./.;
+  src = ./..;
 
   buildInputs = [ 
     rust
