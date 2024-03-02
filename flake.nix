@@ -25,5 +25,8 @@
         devShells = {
           default = pkgs.callPackage ./shell.nix { inherit rust; };
         };
+        checks = {
+          default = pkgs.callPackage ./nix/ci/. { inherit rust; };
+        };
       });
 }
