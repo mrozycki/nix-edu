@@ -1,14 +1,18 @@
 { stdenv, pkgs, rust }:
 let
   manifest = (pkgs.lib.importTOML ../Cargo.toml).package;
-in stdenv.mkDerivation rec {
+  rustPlatform = pkgs.makeRustPlatform {
+    rustc = rust;
+    cargo = rust;
+  };
+in rustPlatform.buildRustPackage rec {
   pname = manifest.name;
   version = manifest.version;
 
   src = ./..;
+  cargoLock.lockFile = ../Cargo.lock;
 
   buildInputs = [ 
-    rust
   ];
   buildPhase = ''
     cargo build --release

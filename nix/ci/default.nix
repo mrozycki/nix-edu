@@ -1,14 +1,15 @@
 { pkgs, lib, stdenv, rust }:
-stdenv.mkDerivation rec {
+let
+    rustPlatform = pkgs.makeRustPlatform {
+        cargo = rust;
+        rustc = rust;
+    };
+in rustPlatform.buildRustPackage rec {
     name = "ci-runner";
     src = ../..;
-    nativeBuildInputs = [ rust ];
-    PATH = lib.makeBinPath nativeBuildInputs;
+    cargoLock.lockFile = ../../Cargo.lock;
 
-    phases = [ "unpackPhase" "buildPhase" "installPhase" ];
-    buildPhase = ''
-        nix/ci/ci-runner.sh
-    '';
+    buildPhase = builtins.readFile ./ci-runner.sh;
     installPhase = ''
         mkdir $out
     '';
