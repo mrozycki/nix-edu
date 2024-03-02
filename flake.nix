@@ -20,10 +20,10 @@
       in
       {
         packages = {
-          default = pkgs.callPackage ./default.nix { inherit rust; };
+          default = pkgs.callPackage ./nix/default.nix { inherit rust; };
         };
         devShells = {
-          default = pkgs.callPackage ./shell.nix { inherit rust; };
+          default = pkgs.callPackage ./nix/shell.nix { inherit rust; };
         };
         checks = {
           default = pkgs.callPackage ./nix/ci/. { inherit rust; };
