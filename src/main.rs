@@ -1,5 +1,7 @@
+use uuid::Uuid;
+
 fn main() {
-    println!("Hello, world!");
+    println!("Hello, world! {}", Uuid::new_v4());
 }
 
 mod test {
